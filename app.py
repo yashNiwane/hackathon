@@ -4,8 +4,7 @@ from openai import OpenAI
 app = Flask(__name__)
 
 
-openai_client = OpenAI(base_url="http://localhost:1234/v1")
-
+client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
 chat_history = [
     {"role": "system", "content": "You are an intelligent assistant. You always provide well-reasoned answers that are both correct and helpful."},
     {"role": "user", "content": "Hello, introduce yourself to someone opening this program for the first time. Be concise."},
@@ -22,7 +21,7 @@ def send_message():
 
     chat_history.append({"role": "user", "content": user_message})
 
-    completion = openai_client.chat.completions.create(
+    completion = client.chat.completions.create(
         model="local-model",
         messages=chat_history,
         temperature=0.7,
